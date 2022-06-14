@@ -61,6 +61,9 @@ print(tf.__version__)
 print("The following GPU devices are available: %s" % tf.test.gpu_device_name())
 tf.compat.v1.enable_eager_execution() # necessary feature!
 
+#
+# Initialize the flask app
+#
 app = Flask(__name__)
 
 print('[INFO] Started Flask App.')
@@ -228,18 +231,12 @@ def detection_loop(filename_image, path, output):
     json.dump(result, res_file, ensure_ascii=False, indent=4)
 
 
-
 #
-# initializing the flask app
-#
-app = Flask(__name__)
-
-#
-# routing http posts to this method
+# Routing http posts to this method
 #
 @app.route('/api/detect', methods=['POST', 'GET'])
 def main():
-  print('[INFO] recieved request with values: %s ' % request.arg.to_dict(flat=True))
+  print('[INFO] recieved request with values: %s ' % request.args.to_dict(flat=True))
 
   #img = request.files["image"].read()
   #image = Image.open(io.BytesIO(img))
@@ -247,7 +244,8 @@ def main():
   #output = request.form.get('output')
 
 
-  # endpoint will be called like http://url:port/api/detect -d "input=./images/filename.jpg&output=1"
+  # endpoint will be called like 
+  # curl http://url:port/api/detect -d "input=/images/filename.jpg&output=1"
   
   # path+name of the image, which is saved locally
   data_input = request.values.get('input')
