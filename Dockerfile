@@ -11,6 +11,7 @@ COPY . /app
 
 #Copy the requirements.txt to leverage Docker cache
 COPY ./requirements.txt /app/requirements.txt
+COPY ./testimages /images
 WORKDIR /app
 
 # Upgrade pip and install requirements

@@ -29,6 +29,7 @@ from flask import Flask, request, Response, jsonify
 # For running inference on the TF-Hub module.
 import tensorflow as tf
 import tensorflow_hub as hub
+from pathlib import Path
 
 # For downloading the image.
 import matplotlib.pyplot as plt
@@ -57,8 +58,7 @@ import re
 # Print Tensorflow version
 print(tf.__version__)
 
-# Check available GPU devices.
-print("The following GPU devices are available: %s" % tf.test.gpu_device_name())
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 tf.compat.v1.enable_eager_execution() # necessary feature!
 
 #
@@ -236,16 +236,14 @@ def detection_loop(filename_image, path, output):
 #
 @app.route('/api/detect', methods=['POST', 'GET'])
 def main():
-  print('[INFO] recieved request with values: %s ' % request.args.to_dict(flat=True))
 
   #img = request.files["image"].read()
   #image = Image.open(io.BytesIO(img))
   #data_input = request.args['input']
   #output = request.form.get('output')
 
-
-  # endpoint will be called like 
-  # curl http://url:port/api/detect -d "input=/images/filename.jpg&output=1"
+  print("call received")
+  # endpoint will be called like http://url:port/api/detect -d "input=./images/filename.jpg&output=1"
   
   # path+name of the image, which is saved locally
   data_input = request.values.get('input')
@@ -256,8 +254,10 @@ def main():
   else:
     output = False
   
-
+  print("File      Path:", Path(__file__).absolute())
+  print("Directory Path:", Path().absolute())
   path = data_input
+  print("Given path:", path)
   filename = ''
   filename_image = {} # unused, since we do our own Image loading incl. resizing
   
