@@ -32,12 +32,12 @@ def send_curls(node, path_list, base_dir, output):
             # endpoint will be called like curl http://url:port/api/detect -d "input=/images/filename.jpg&output=1"
 
             # a few testing "commands"
-            res.append(subprocess.run(
-                ['echo', 'curl', 'http://'+node+'/api/detect', '-d', '"input='+base_dir+path+o+'"']))
+            #res.append(subprocess.run(
+            #    ['echo', 'curl', 'http://'+node+'/api/detect', '-d', '"input='+base_dir+path+o+'"']))
             #res.append(subprocess.run(['sleep', '5']))
 
             # the actual command once the endpoints are done
-            #res = subprocess.run(['curl', 'http://'+node+'/api/detect', '-d', '"input='+path+o+'"'])
+            res = subprocess.run(['curl', 'http://'+node+'/api/detect', '-d', '"input='+base_dir+path+o+'"'])
 
     return res
 

@@ -254,6 +254,9 @@ def main():
 
     # path+name of the image, which is saved locally
     data_input = request.values.get('input')
+    if not data_input:
+        return Response(status=400)
+
 
     # (is a flag) if not empty annotated images should be saved to local storage
     if request.values.get('output'):
