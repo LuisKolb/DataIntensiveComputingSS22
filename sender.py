@@ -37,13 +37,13 @@ def send_curls(node, path_list, base_dir, output):
             #res.append(subprocess.run(['sleep', '5']))
 
             # the actual command once the endpoints are done
-            res = subprocess.run(['curl', 'http://'+node+'/api/detect', '-d', '"input='+base_dir+path+o+'"'])
+            res.append(subprocess.run(['curl', 'http://'+node+'/api/detect', '-d', 'input='+base_dir+path+o]))
 
     return res
 
 
 def process_result(future):
-    # print(future.result())
+    print(future.result())
     pass
 
 
@@ -73,7 +73,7 @@ def main(images_folder, output, nodes, **kwargs):
 
 #
 # call the script like (image dir first!)
-# python sender.py /folder/ --output --nodes 127.0.0.1:5000
+# python sender.py /app/images/ --output --nodes 127.0.0.1:5000
 #
 if __name__ == '__main__':
     args = p.parse_args()
