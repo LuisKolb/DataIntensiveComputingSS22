@@ -26,7 +26,7 @@ Docker run on cluster
 `docker run --name dic_assignmentg02 -v ~/dic02-images:/app/images -d -p 5002:5000 dic_assignmentg02:latest`
 
 curl cluster externally  
-`curl http://s25.lbd.hpc.tuwien.ac.at:5002/api/detect -d "input=./testimages/000000000019.jpg&output=1`
+`curl http://s25.lbd.hpc.tuwien.ac.at:5002/api/detect -d "input=/app/images/000000000019.jpg&output=1`
 
 Get container bash  
 `docker exec -it dic_assignmentg02 /bin/bash`
